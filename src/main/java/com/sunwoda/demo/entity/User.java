@@ -37,6 +37,8 @@ public class User implements Serializable {
 
     private String salt;
 
+    private String address;
+
     @Override
     public String toString() {
         return "User{" +
@@ -51,6 +53,7 @@ public class User implements Serializable {
                 ", perms='" + perms + '\'' +
                 ", role='" + role + '\'' +
                 ", salt='" + salt + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

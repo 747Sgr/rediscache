@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService {
         return userDao.queryAll(req);
     }
 
+    @Override
+    public List<User> getAddressList(User req) {
+        return userDao.getAddressList(req);
+    }
+
 }

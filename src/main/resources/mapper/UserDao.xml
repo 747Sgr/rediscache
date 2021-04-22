@@ -14,6 +14,7 @@
         <result property="perms" column="perms" jdbcType="VARCHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
         <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
     </resultMap>
 
 <!--  开启缓存  -->
@@ -149,6 +150,50 @@
     <delete id="deleteById">
         delete from sccp2.user where id = #{id}
     </delete>
+
+    <select id="getAddressList" resultMap="UserMap">
+        SELECT
+            u.*,
+            uai.address as address
+        FROM
+            `user` u
+            INNER JOIN user_address_info uai ON u.id = uai.user_id
+        <where>
+            <if test="id != null">
+                and u.id = #{id}
+            </if>
+            <if test="createAt != null">
+                and u.create_at = #{createAt}
+            </if>
+            <if test="createBy != null">
+                and u.create_by = #{createBy}
+            </if>
+            <if test="updateAt != null">
+                and u.update_at = #{updateAt}
+            </if>
+            <if test="updateBy != null">
+                and u.update_by = #{updateBy}
+            </if>
+            <if test="username != null and username != ''">
+                and u.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and u.password = #{password}
+            </if>
+            <if test="tenantId != null">
+                and u.tenant_id = #{tenantId}
+            </if>
+            <if test="perms != null and perms != ''">
+                and u.perms = #{perms}
+            </if>
+            <if test="role != null and role != ''">
+                and u.role = #{role}
+            </if>
+            <if test="salt != null and salt != ''">
+                and u.salt = #{salt}
+            </if>
+        </where>
+    </select>
 
 </mapper>
 

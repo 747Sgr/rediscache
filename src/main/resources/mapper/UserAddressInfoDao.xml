@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunwoda.demo.dao.UserAddressInfoDao">
+
+    <resultMap type="com.sunwoda.demo.entity.UserAddressInfo" id="UserAddressInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+<!--  开启缓存 仅用于无关联的表 -->
+<!--    <cache type="com.sunwoda.demo.redis.RedisCache"/>-->
+<!--  开启缓存 该mapper与namespace公用一个缓存 当其中一个进行了增删改，都会清空缓存，达到缓存数据一致  -->
+    <cache-ref namespace="com.sunwoda.demo.dao.UserDao"/>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserAddressInfoMap">
+        select
+          id, create_at, create_by, update_at, update_by, address, user_id
+        from sccp2.user_address_info
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserAddressInfoMap">
+        select
+          id, create_at, create_by, update_at, update_by, address, user_id
+        from sccp2.user_address_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserAddressInfoMap">
+        select
+        id, create_at, create_by, update_at, update_by, address, user_id
+        from sccp2.user_address_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="createAt != null">
+                and create_at = #{createAt}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateAt != null">
+                and update_at = #{updateAt}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sccp2.user_address_info(create_at, create_by, update_at, update_by, address, user_id)
+        values (#{createAt}, #{createBy}, #{updateAt}, #{updateBy}, #{address}, #{userId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sccp2.user_address_info(create_at, create_by, update_at, update_by, address, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.createAt}, #{entity.createBy}, #{entity.updateAt}, #{entity.updateBy}, #{entity.address},
+            #{entity.userId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sccp2.user_address_info(create_at, create_by, update_at, update_by, address, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.createAt}, #{entity.createBy}, #{entity.updateAt}, #{entity.updateBy}, #{entity.address},
+            #{entity.userId})
+        </foreach>
+        on duplicate key update
+        create_at = values(create_at) , create_by = values(create_by) , update_at = values(update_at) , update_by =
+        values(update_by) , address = values(address) , user_id = values(user_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sccp2.user_address_info
+        <set>
+            <if test="createAt != null">
+                create_at = #{createAt},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateAt != null">
+                update_at = #{updateAt},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sccp2.user_address_info where id = #{id}
+    </delete>
+
+</mapper>
+

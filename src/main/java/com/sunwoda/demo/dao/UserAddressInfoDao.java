@@ -1,17 +1,17 @@
 package com.sunwoda.demo.dao;
 
-import com.sunwoda.demo.entity.User;
+import com.sunwoda.demo.entity.UserAddressInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (User)表数据库访问层
+ * (UserAddressInfo)表数据库访问层
  *
  * @author makejava
- * @since 2021-04-22 10:24:31
+ * @since 2021-04-22 16:09:24
  */
-public interface UserDao {
+public interface UserAddressInfoDao {
 
     /**
      * 通过ID查询单条数据
@@ -19,7 +19,7 @@ public interface UserDao {
      * @param id 主键
      * @return 实例对象
      */
-    User queryById(Long id);
+    UserAddressInfo queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -28,48 +28,48 @@ public interface UserDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<User> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<UserAddressInfo> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param user 实例对象
+     * @param userAddressInfo 实例对象
      * @return 对象列表
      */
-    List<User> queryAll(User user);
+    List<UserAddressInfo> queryAll(UserAddressInfo userAddressInfo);
 
     /**
      * 新增数据
      *
-     * @param user 实例对象
+     * @param userAddressInfo 实例对象
      * @return 影响行数
      */
-    int insert(User user);
+    int insert(UserAddressInfo userAddressInfo);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<User> 实例对象列表
+     * @param entities List<UserAddressInfo> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<User> entities);
+    int insertBatch(@Param("entities") List<UserAddressInfo> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<User> 实例对象列表
+     * @param entities List<UserAddressInfo> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<User> entities);
+    int insertOrUpdateBatch(@Param("entities") List<UserAddressInfo> entities);
 
     /**
      * 修改数据
      *
-     * @param user 实例对象
+     * @param userAddressInfo 实例对象
      * @return 影响行数
      */
-    int update(User user);
+    int update(UserAddressInfo userAddressInfo);
 
     /**
      * 通过主键删除数据
@@ -78,8 +78,6 @@ public interface UserDao {
      * @return 影响行数
      */
     int deleteById(Long id);
-
-    List<User> getAddressList(User req);
 
 }
 

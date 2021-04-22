@@ -59,6 +59,11 @@ public class UserController {
         }
     }
 
+    @PostMapping("/getAddressList")
+    public List<User> getAddressList(@RequestBody User req){
+        return userService.getAddressList(req);
+    }
+
 
 
 }

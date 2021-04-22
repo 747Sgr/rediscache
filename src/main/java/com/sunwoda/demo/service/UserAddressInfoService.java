@@ -1,17 +1,16 @@
 package com.sunwoda.demo.service;
 
-import com.sunwoda.demo.entity.User;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.sunwoda.demo.entity.UserAddressInfo;
 
 import java.util.List;
 
 /**
- * (User)表服务接口
+ * (UserAddressInfo)表服务接口
  *
  * @author makejava
- * @since 2021-04-22 10:24:32
+ * @since 2021-04-22 16:09:25
  */
-public interface UserService {
+public interface UserAddressInfoService {
 
     /**
      * 通过ID查询单条数据
@@ -19,7 +18,7 @@ public interface UserService {
      * @param id 主键
      * @return 实例对象
      */
-    User queryById(Long id);
+    UserAddressInfo queryById(Long id);
 
     /**
      * 查询多条数据
@@ -28,23 +27,23 @@ public interface UserService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<User> queryAllByLimit(int offset, int limit);
+    List<UserAddressInfo> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param user 实例对象
+     * @param userAddressInfo 实例对象
      * @return 实例对象
      */
-    User insert(User user);
+    UserAddressInfo insert(UserAddressInfo userAddressInfo);
 
     /**
      * 修改数据
      *
-     * @param user 实例对象
+     * @param userAddressInfo 实例对象
      * @return 实例对象
      */
-    int update(User user);
+    int update(UserAddressInfo userAddressInfo);
 
     /**
      * 通过主键删除数据
@@ -53,11 +52,5 @@ public interface UserService {
      * @return 是否成功
      */
     boolean deleteById(Long id);
-
-    User selectOneTwo(Long id);
-
-    List<User> getList(User req);
-
-    List<User> getAddressList(User req);
 
 }
